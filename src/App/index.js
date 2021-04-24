@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import React from 'react';
 import firebase from 'firebase';
 import firebaseConfig from '../helper/data/apiKeys';
-import AuthorForm from '../authorForm';
+import AuthorForm from '../AuthorForm';
 import './App.scss';
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import addAuthor from './helper/data/authorData';
 
-export default function AuthorForm() {
+const AuthorForm = () => {
   const [author, setAuthor] = useState({
     first_name: '',
     last_name: '',
@@ -16,8 +16,8 @@ export default function AuthorForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAuthor();
-  }
+    addAuthor(author);
+  };
 
   return (
     <>
@@ -25,12 +25,12 @@ export default function AuthorForm() {
       <form
       id='addAuthorForm'
       autoComplete='off'
-      onSumbit={handleSubmit}
+      onSubmit={handleSubmit}
       >
         <h2>Author Form</h2>
         <label>First Name: </label>
         <input
-          first_name='first_name'
+          name='first_name'
           type='text'
           placeholder='First Name'
           value={author.first_name}
@@ -39,7 +39,7 @@ export default function AuthorForm() {
 
         <label>Last Name: </label>
         <input
-          last_name='last_name'
+          name='last_name'
           type='text'
           placeholder='Last Name'
           value={author.last_name}
@@ -50,5 +50,7 @@ export default function AuthorForm() {
       </form>
     </div>
     </>
-  )
-}
+  );
+};
+
+export default AuthorForm;
