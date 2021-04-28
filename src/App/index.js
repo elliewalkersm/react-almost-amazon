@@ -1,16 +1,24 @@
-import React from 'react';
-import firebase from 'firebase';
-import firebaseConfig from '../helper/data/apiKeys';
-import AuthorForm from '../AuthorForm';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
+import NavBar from '../components/Navbar';
+import Routes from '../helper/routes';
+import { getAuthors } from '../helper/data/authorData';
 
 function App() {
-  firebase.initializeApp(firebaseConfig);
+  const [authors, setAuthors] = useState([]);
+
+  useEffect(() => {
+    getAuthors().then((response) => setAuthors(response));
+  }, []);
 
   return (
-    <div className='App'>
-      <AuthorForm />
-    </div>
+    <>
+      <Router>
+        <NavBar />
+        <Routes authors={authors} setAuthors={setAuthors}/>
+      </Router>
+    </>
   );
 }
 

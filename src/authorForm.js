@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import addAuthor from './helper/data/authorData';
+import PropTypes from 'prop-types';
+import { addAuthor } from './helper/data/authorData';
 
-const AuthorForm = () => {
+const AuthorForm = ({ formTitle, setAuthors }) => {
   const [author, setAuthor] = useState({
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
   });
 
   const handleInputChange = (e) => {
@@ -16,7 +17,7 @@ const AuthorForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAuthor(author);
+    addAuthor(author).then((authorArray) => setAuthors(authorArray));
   };
 
   return (
@@ -27,22 +28,22 @@ const AuthorForm = () => {
       autoComplete='off'
       onSubmit={handleSubmit}
       >
-        <h2>Author Form</h2>
+        <h2>{formTitle}</h2>
         <label>First Name: </label>
         <input
-          name='first_name'
+          name='firstName'
           type='text'
           placeholder='First Name'
-          value={author.first_name}
+          value={author.firstName}
           onChange={handleInputChange}
         ></input>
 
         <label>Last Name: </label>
         <input
-          name='last_name'
+          name='lastName'
           type='text'
           placeholder='Last Name'
-          value={author.last_name}
+          value={author.lastName}
           onChange={handleInputChange}
         ></input>
 
@@ -51,6 +52,11 @@ const AuthorForm = () => {
     </div>
     </>
   );
+};
+
+AuthorForm.propTypes = {
+  formTitle: PropTypes.string.isRequired,
+  setAuthors: PropTypes.func
 };
 
 export default AuthorForm;

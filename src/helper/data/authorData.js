@@ -3,14 +3,26 @@ import firebaseConfig from './apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
+const getAuthors = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/authors.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 const addAuthor = (author) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/authors.json`, author)
     .then((response) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbURL}/authors/${response.data.name}.json`, body)
-        .then(() => resolve(console.warn('Author Added', author)));
+        .then(() => getAuthors().then((authorArray) => resolve(authorArray)));
     })
     .catch((error) => reject(error));
 });
 
-export default addAuthor;
+const deleteAuthor = (firebasekey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbURL}/authors/${firebasekey}.json`)
+    .then(() => getAuthors().then((authorArray) => resolve(authorArray)))
+    .catch((error) => reject(error));
+});
+
+export { addAuthor, getAuthors, deleteAuthor };
