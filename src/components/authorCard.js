@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
@@ -7,29 +7,52 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { deleteAuthor } from '../helper/data/authorData';
+import AuthorForm from '../AuthorForm';
 
 const AuthorCard = ({
-  firebasekey,
+  firebaseKey,
   firstName,
   lastName,
   setAuthors
 }) => {
-  const handleClick = () => {
-    deleteAuthor(firebasekey)
-      .then((authorArray) => setAuthors(authorArray));
+  const [updating, setUpdating] = useState(false);
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteAuthor(firebaseKey)
+          .then((authorArray) => setAuthors(authorArray));
+        break;
+      case 'update':
+        setUpdating((prevState) => !prevState);
+        break;
+      default:
+        console.warn('nothing selected');
+    }
   };
 
   return (
     <Card body>
       <CardTitle tag="h5">{firstName} {lastName}</CardTitle>
       <CardText>Description: insert text</CardText>
-      <Button color="danger" onClick={handleClick}>Delete Author</Button>
+      <Button color="danger" onClick={() => handleClick('delete')}>Delete Author</Button>
+      <Button color="info" onClick={() => handleClick('update')}>
+        {updating ? 'Close Form' : 'Update Author'}
+      </Button>
+      {
+        updating && <AuthorForm
+          formTitle='Update Author'
+          setAuthors={setAuthors}
+          firebaseKey={firebaseKey}
+          firstName={firstName}
+          lastName={lastName}
+        />
+      }
     </Card>
   );
 };
 
 AuthorCard.propTypes = {
-  firebasekey: PropTypes.string.isRequired,
+  firebaseKey: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   setAuthors: PropTypes.func

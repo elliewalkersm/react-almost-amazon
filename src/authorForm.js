@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addAuthor } from './helper/data/authorData';
+import { addAuthor, updateAuthor } from './helper/data/authorData';
 
 const AuthorForm = ({ formTitle, setAuthors }) => {
   const [author, setAuthor] = useState({
@@ -17,7 +17,11 @@ const AuthorForm = ({ formTitle, setAuthors }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAuthor(author).then((authorArray) => setAuthors(authorArray));
+    if (author.firebaseKey) {
+      updateAuthor(author).then((authorArray) => setAuthors(authorArray));
+    } else {
+      addAuthor(author).then((authorArray) => setAuthors(authorArray));
+    }
   };
 
   return (

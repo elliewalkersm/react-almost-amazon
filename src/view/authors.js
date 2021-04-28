@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import firebaseConfig from '../helper/data/apiKeys';
-import AuthorForm from '../AuthorForm';
 // import './App.scss';
 import { getAuthors } from '../helper/data/authorData';
 import AuthorCard from '../components/authorCard';
@@ -17,14 +16,10 @@ function Authors() {
 
   return (
     <div className='App'>
-      <AuthorForm
-      formTitle='Author Form'
-      setAuthors={setAuthors}
-      />
-      <hr/>
       {authors.map((authorInfo) => (
         <AuthorCard
           key={authorInfo.firebaseKey}
+          firebaseKey={authorInfo.firebaseKey}
           firstName={authorInfo.name}
           lastName={authorInfo.name}
           setAuthors={setAuthors}
