@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AddAuthor from '../view/AddAuthor';
 import Home from '../view/Home';
 import Authors from '../view/authors';
+import singleAuthor from '../components/singleAuthor';
 
 export default function Routes({ authors, setAuthors }) {
   return (
@@ -17,6 +18,10 @@ export default function Routes({ authors, setAuthors }) {
         <Route
           path='/add-authors'
           component={() => <AddAuthor setAuthors={setAuthors} />}
+        />
+        <Route
+          path='/authors/:firebaseKey'
+          component={singleAuthor}
         />
       </Switch>
     </div>
