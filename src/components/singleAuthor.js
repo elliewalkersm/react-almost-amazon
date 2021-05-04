@@ -16,8 +16,8 @@ export default function singleAuthor() {
   return (
     <div>
       <h1>Single Author</h1>
-      <h2>author.firstName</h2>
-      <h3>author.lastName</h3>
+      <h2>{author.firstName}</h2>
+      <h3>{author.lastName}</h3>
     </div>
   );
 }
