@@ -7,10 +7,12 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  Button
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { signInUser, signOutUser } from '../helper/auth';
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -33,7 +35,7 @@ const NavBar = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            { user && authenticated}
+            { user && authenticated() }
             <NavItem>
               {
                 user !== null
@@ -51,6 +53,10 @@ const NavBar = () => {
       </Navbar>
     </div>
   );
+};
+
+NavBar.propTypes = {
+  user: PropTypes.any
 };
 
 export default NavBar;

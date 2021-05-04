@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import NavBar from '../components/Navbar';
