@@ -35,7 +35,10 @@ function App() {
     <>
       <Router>
         <NavBar user={user}/>
-        <Routes authors={authors} setAuthors={setAuthors}/>
+        <Routes
+        user={user}
+        authors={authors}
+        setAuthors={setAuthors}/>
       </Router>
     </>
   );
